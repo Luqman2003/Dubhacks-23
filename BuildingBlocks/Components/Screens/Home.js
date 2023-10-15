@@ -58,7 +58,6 @@ export default function Home({user, navigation}) {
       await updateDailyScore(user.uid);
       const updatedData = await fetchUserScores(user.uid);
       setUserData(updatedData);
-      alert('Score updated manually!');
     } catch (error) {
       alert('Failed to update score manually: ' + error.message);
     }
