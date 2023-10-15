@@ -1,45 +1,59 @@
-// import React, { useState } from 'react';
-// import { View, Text, StyleSheet } from 'react-native';
-// import { Picker } from '@react-native-picker/picker';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
 
-// const DropdownComponent = () => {
-//   const [selectedValue, setSelectedValue] = useState('Daily');
+const DropdownComponent = ({ navigation }) => {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Daily', value: 'daily'},
+    {label: 'Weekly', value: 'weekly'},
+    {label: 'Monthly', value: 'monthly'},
+  ]);
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Dropdown / List</Text>
+  const handleValueChange = (selectedValue) => {
+    setValue(selectedValue);
 
-//       <Picker
-//         selectedValue={selectedValue}
-//         style={styles.picker}
-//         onValueChange={(itemValue) => setSelectedValue(itemValue)}
-//       >
-//         <Picker.Item label="Daily" value="Daily" />
-//         <Picker.Item label="Weekly" value="Weekly" />
-//         <Picker.Item label="Monthly" value="Monthly" />
-//       </Picker>
-//     </View>
-//   );
-// };
+    // Navigate based on selected value
+    if (selectedValue == 'daily') {
+      navigation.navigate('details');
+      console.log('hello');
+    } else if (selectedValue === 'banana') {
+      navigation.navigate('BananaScreen');
+    }
+  };
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     paddingHorizontal: 20,
-//   },
-//   title: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-//     marginBottom: 10,
-//   },
-//   picker: {
-//     height: 50,
-//     width: '100%',
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     borderRadius: 5,
-//   },
-// });
+  return (
+    <View style={styles.container}>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={handleValueChange}
+        setItems={setItems}
+        containerStyle={styles.dropdownContainer}
+        dropDownContainerStyle={styles.dropDownStyle}
+      />
+    </View>
+  );
+};
 
-// export default DropdownComponent;
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingTop: 20, // Adjust this value if you want the dropdown to be even higher
+    width: '100%',
+  },
+  dropdownContainer: {
+    width: '70%',
+  },
+  dropDownStyle: {
+    borderColor: 'gray',
+    width: '100%',
+  },
+});
+
+
+export default DropdownComponent;
