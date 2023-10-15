@@ -1,8 +1,9 @@
 // Home.js
 import React, { useEffect, useState } from 'react';
-import { Text, SafeAreaView, Image, StyleSheet, View } from 'react-native';
+import { SafeAreaView, Image, StyleSheet, View } from 'react-native';
 import fetchUserScores from '../DatabaseLogic/FetchLogic';
 import Dropdown from '../Dropdown';
+import ProfileSummary from '../ProfileSummary';
 
 const styles = StyleSheet.create({
   progressPyramid: {
@@ -36,16 +37,21 @@ export default function Home({user, navigation}) {
 
   return (
     <SafeAreaView style={styles.viewstyle}>
-      <View style={{marginBottom: 80}}>
-        <Dropdown navigation={navigation}/>
+      <View style={styles.viewstyle}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          {/* Placeholder for stats posting */}
+          <ProfileSummary userData={userData}></ProfileSummary>
+        </View>
+        <View style={{ flex: 1, alignItems: 'center'}}>
+          <Image
+            style={styles.progressPyramid}
+            source={require('../../assets/Pyramid.png')}
+          />
+        </View>
+        <View style={{flex: 1}}>
+          <Dropdown navigation={navigation}/>
+        </View>
       </View>
-    <View style={{ alignItems: 'center'}}>
-      <Image
-        style={styles.progressPyramid}
-        source={require('../../assets/Pyramid.png')}
-      />
-    </View>
-      {/* Optionally render additional UI based on fetched data here */}
     </SafeAreaView>
   );
 }

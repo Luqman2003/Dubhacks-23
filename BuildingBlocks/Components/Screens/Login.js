@@ -5,7 +5,6 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../FirebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import SignInUp from '../SignInUp';
 
 
 // using the firestore databse to fetch data about the user
