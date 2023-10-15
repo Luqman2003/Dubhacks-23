@@ -35,7 +35,7 @@ export default function Home({user}) {
     <SafeAreaView style={styles.viewstyle}>
       <Image
         style={styles.progressPyramid}
-        source={require('../../assets/testTriangle.jpg')}
+        source={require('../../assets/Pyramid.png')}
       />
       {/* Optionally render additional UI based on fetched data here */}
     </SafeAreaView>
