@@ -5,7 +5,6 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
