@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button, KeyboardAvoidingView } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button, KeyboardAvoidingView, Keyboard } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
@@ -80,41 +80,58 @@ const Login = () => {
 
   return (
     <View style={[styles.container, {flexDirection: 'column'}]}>
-      <View style={{flex: 1, backgroundColor: 'red'}} />
-      <KeyboardAvoidingView style={{flex: 2}} behavior='padding'>
-        {/* Email input */}
-        <TextInput
-          value={email}
-          style={styles.input}
-          placeholder='Email'
-          autoCapitalize='none'
-          onChangeText={(text) => setEmail(text)}>
-        </TextInput>
-        {/* Password input */}
-        <TextInput
-          secureTextEntry={true}
-          value={password}
-          style={styles.input}
-          placeholder='Password'
-          autoCapitalize='none'
-          onChangeText={(text) => setPassword(text)}>
-        </TextInput>
-        {loading ? (
-          <ActivityIndicator size='large' color='#0000ff' />
-        ) : (
-          <>
-            <Button title='Login' onPress={() => signIn()} />
-            <Button title='Sign Up' onPress={() => signUp()}/>
-          </>
-        )}
+      <View style={{flex: 8, backgroundColor: 'gray'}} />
+      <KeyboardAvoidingView behavior='padding'style={{flex: 16}}>
+        {/* Container for the bottom 2/3 */}
+        <View style={[styles.flexContainer, {flexDirection: 'column'}]}>
+            {/* Getting Started Container */}
+            <View style={{flex: 3, backgroundColor: 'red'}}>
+              {/* Top fifth: Getting Started piece */}
+              <Text>Getting Started</Text>
+              <Text>Sign up or log in to begin your journey.</Text>
+            </View>
+            <View style={[styles.inputForm, {flex: 7}]}>
+              <View style={[styles.flexContainer]}>
+                {/* Email input */}
+                <Text style={[styles.labels]}>Email</Text>
+                <TextInput
+                  value={email}
+                  style={styles.input}
+                  placeholder='Email'
+                  autoCapitalize='none'
+                  onChangeText={(text) => setEmail(text)}>
+                </TextInput>
+                {/* Password input */}
+                <Text style={[styles.labels]}>Password</Text>
+                <TextInput
+                  secureTextEntry={true}
+                  value={password}
+                  style={styles.input}
+                  placeholder='Password'
+                  autoCapitalize='none'
+                  onChangeText={(text) => setPassword(text)}>
+                </TextInput>
+                {loading ? (
+                  <ActivityIndicator size='large' color='#0000ff' />
+                ) : (
+                  <>
+                    <Button title='Login' onPress={() => signIn()} />
+                    <Button title='Sign Up' onPress={() => signUp()}/>
+                  </>
+                )}
+              </View>
+            </View>
+        </View>
       </KeyboardAvoidingView>
+      <View style={{flex: 3, backgroundColor: 'red'}}>
+        {/* Bottom Fifth: Forgot Password */}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // padding: 20,
     flex: 1,
     justifyContent: 'center'
   },
@@ -125,6 +142,15 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     backgroundColor: '#fff'
+  },
+  flexContainer: {
+    flex: 1
+  },
+  inputForm: {
+    paddingHorizontal: 50,
+  },
+  labels: {
+    margin: 10
   }
 });
 
