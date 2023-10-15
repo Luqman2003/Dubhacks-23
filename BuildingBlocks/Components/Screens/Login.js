@@ -1,11 +1,27 @@
-import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button, KeyboardAvoidingView, Keyboard } from 'react-native'
+import { View, Text, StyleSheet, TextInput, ActivityIndicator, Button, KeyboardAvoidingView, Keyboard, Image, ImageBackground } from 'react-native'
 import { useState } from 'react';
 import React from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../FirebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import fetchUserScores from '../DatabaseLogic/FetchLogic';
+
+
+// using the firestore databse to fetch data about the user
+async function fetchUserScores(uid) {
+  try {
+    const userDoc = await getDoc(doc(db, 'users', uid));
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error('User not found');
+    }
+  } catch(err) {
+    alert('Failed to fetch scores: ' + err.message);
+    return null;
+  }
+}
+
 
 
 const Login = () => {
@@ -64,15 +80,29 @@ const Login = () => {
 
   return (
     <View style={[styles.container, {flexDirection: 'column'}]}>
-      <View style={{flex: 8, backgroundColor: 'gray'}} />
+      <View style={{flex: 8}}>
+        <Image 
+        source={require('../../assets/SignUp1.jpg')}
+        style={[styles.image]}
+        />
+      </View>
       <KeyboardAvoidingView behavior='padding'style={{flex: 16}}>
         {/* Container for the bottom 2/3 */}
         <View style={[styles.flexContainer, {flexDirection: 'column'}]}>
             {/* Getting Started Container */}
-            <View style={{flex: 3, backgroundColor: 'red'}}>
+            <View style={{flex: 3}}>
               {/* Top fifth: Getting Started piece */}
-              <Text>Getting Started</Text>
-              <Text>Sign up or log in to begin your journey.</Text>
+              <View style={[styles.flexContainer, {flexDirection: 'row', backgroundColor: 'white'}]}>
+                <View style={{flex: 2}}>
+                  <Text style={[styles.title]}>Getting Started</Text>
+                  <Text style={[styles.subtitle]}>Sign up or log in to begin your journey.</Text>
+                </View>
+                <View style={{flex: 1}}>
+                  <Image 
+                  source={require('../../assets/SignUp2.jpg')}
+                  style={[styles.image, styles.image2]}/>
+                </View>
+              </View>
             </View>
             <View style={[styles.inputForm, {flex: 7}]}>
               <View style={[styles.flexContainer]}>
@@ -107,8 +137,17 @@ const Login = () => {
             </View>
         </View>
       </KeyboardAvoidingView>
-      <View style={{flex: 3, backgroundColor: 'red'}}>
+      <View style={{flex: 4, backgroundColor: 'white'}}>
         {/* Bottom Fifth: Forgot Password */}
+        <View style={[styles.flexContainer, {flexDirection: 'row'}]}>
+          <View style={{flex: 3}}>
+            <Image 
+              style={[styles.image, styles.image3]}
+              source={require('../../assets/SignUp3.jpg')} 
+            />
+          </View>
+          <View style={{flex: 5}}></View>
+        </View>
       </View>
     </View>
   );
@@ -132,9 +171,33 @@ const styles = StyleSheet.create({
   },
   inputForm: {
     paddingHorizontal: 50,
+    backgroundColor: 'white'
   },
   labels: {
-    margin: 10
+    margin: 10,
+    fontWeight: 'bold',
+    fontSize: 20
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover'
+  },
+  image2: {
+    borderBottomLeftRadius: 15
+  },
+  title: {
+    padding: 20,
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  subtitle: {
+    padding: 20,
+    fontSize: 15
+  },
+  image3: {
+    borderTopRightRadius: 10
   }
 });
 
