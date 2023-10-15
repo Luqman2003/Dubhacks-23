@@ -88,58 +88,56 @@ const Login = () => {
       </View>
       <KeyboardAvoidingView behavior='padding'style={{flex: 16}}>
         {/* Container for the bottom 2/3 */}
-        <View style={[styles.flexContainer, {flexDirection: 'column'}]}>
-            {/* Getting Started Container */}
-            <View style={{flex: 3}}>
-              {/* Top fifth: Getting Started piece */}
-              <View style={[styles.flexContainer, {flexDirection: 'row', backgroundColor: 'white'}]}>
-                <View style={{flex: 2}}>
-                  <Text style={[styles.title]}>Getting Started</Text>
-                  <Text style={[styles.subtitle]}>Sign up or log in to begin your journey.</Text>
-                </View>
-                <View style={{flex: 1}}>
-                  <Image 
-                  source={require('../../assets/SignUp2.jpg')}
-                  style={[styles.image, styles.image2]}/>
-                </View>
+        <View style={[styles.container, styles.containerMiddle, {flexDirection: 'column'}]}>
+          {/* Getting Started Container */}
+          <View style={{flex: 3}}>
+            <View style={[styles.container, {flexDirection: 'column'}]}>
+              <View style={{flex: 1}}>
+                <Text>SIGN UP</Text>
+              </View>
+              <View style={{flex: 2}}>
+                {/* Bottom Half, Getting started and subtext */}
+                <Text style={[styles.title]}>Getting Started</Text>
+                <Text style={[styles.subtitle]}>Sign up or log in to begin your journey.</Text>
               </View>
             </View>
-            <View style={[styles.inputForm, {flex: 7}]}>
-              <View style={[styles.flexContainer]}>
-                {/* Email input */}
-                <Text style={[styles.labels]}>Email</Text>
-                <TextInput
-                  value={email}
-                  style={styles.input}
-                  placeholder='Email'
-                  autoCapitalize='none'
-                  onChangeText={(text) => setEmail(text)}>
-                </TextInput>
-                {/* Password input */}
-                <Text style={[styles.labels]}>Password</Text>
-                <TextInput
-                  secureTextEntry={true}
-                  value={password}
-                  style={styles.input}
-                  placeholder='Password'
-                  autoCapitalize='none'
-                  onChangeText={(text) => setPassword(text)}>
-                </TextInput>
-                {loading ? (
-                  <ActivityIndicator size='large' color='#0000ff' />
-                ) : (
-                  <>
-                    <Button title='Login' onPress={() => signIn()} />
-                    <Button title='Sign Up' onPress={() => signUp()}/>
-                  </>
-                )}
-              </View>
+          </View>
+          <View style={[styles.inputForm, {flex: 7}]}>
+            <View style={[styles.container]}>
+              {/* Email input */}
+              <Text style={[styles.labels]}>Email</Text>
+              <TextInput
+                value={email}
+                style={styles.input}
+                placeholder='Email'
+                autoCapitalize='none'
+                onChangeText={(text) => setEmail(text)}>
+              </TextInput>
+              {/* Password input */}
+              <Text style={[styles.labels]}>Password</Text>
+              <TextInput
+                secureTextEntry={true}
+                value={password}
+                style={styles.input}
+                placeholder='Password'
+                autoCapitalize='none'
+                onChangeText={(text) => setPassword(text)}>
+              </TextInput>
+              {loading ? (
+                <ActivityIndicator size='large' color='#0000ff' />
+              ) : (
+                <>
+                  <Button title='Login' onPress={() => signIn()} />
+                  <Button title='Sign Up' onPress={() => signUp()}/>
+                </>
+              )}
             </View>
+          </View>
         </View>
       </KeyboardAvoidingView>
       <View style={{flex: 4, backgroundColor: 'white'}}>
         {/* Bottom Fifth: Forgot Password */}
-        <View style={[styles.flexContainer, {flexDirection: 'row'}]}>
+        <View style={[styles.container, {flexDirection: 'row'}]}>
           <View style={{flex: 3}}>
             <Image 
               style={[styles.image, styles.image3]}
@@ -155,8 +153,11 @@ const Login = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center'
+    flex: 1
+  },
+  containerMiddle: {
+    paddingHorizontal: 50,
+    backgroundColor: 'white'
   },
   input: {
     marginVertical: 4,
@@ -170,7 +171,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   inputForm: {
-    paddingHorizontal: 50,
     backgroundColor: 'white'
   },
   labels: {
@@ -188,13 +188,14 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 15
   },
   title: {
-    padding: 20,
-    fontSize: 25,
+    padding: 5,
+    fontSize: 30,
     fontWeight: 'bold'
   },
   subtitle: {
-    padding: 20,
-    fontSize: 15
+    padding: 6,
+    fontSize: 16,
+    color: 'gray'
   },
   image3: {
     borderTopRightRadius: 10
