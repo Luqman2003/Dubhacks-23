@@ -37,7 +37,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
         {user ? (
-        <Stack.Screen name='Inside' component={Home} options={{ headerShown: false }}/>
+        <Stack.Screen
+          name='Inside'
+          options={{ headerShown: false }}
+          children={() => <Home user={user} />}
+          />
         ) : (
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
         )}

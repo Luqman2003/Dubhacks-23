@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
   }
 })
 
-export default function Home(props) {
+export default function Home({user}) {
+  console.log(user);
     return (
       <SafeAreaView style={styles.viewstyle}>
         <Image

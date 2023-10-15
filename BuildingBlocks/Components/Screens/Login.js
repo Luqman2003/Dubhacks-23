@@ -4,7 +4,25 @@ import React from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../FirebaseConfig';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+
+
+// using the firestore databse to fetch data about the user
+async function fetchUserScores(uid) {
+  try {
+    const userDoc = await getDoc(doc(db, 'users', uid));
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error('User not found');
+    }
+  } catch(err) {
+    alert('Failed to fetch scores: ' + err.message);
+    return null;
+  }
+}
+
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +34,13 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log(response);
+      const uid = response.user.uid;
+      console.log(uid);
+
+      // Fetching user scores after successful sign-in
+      const userData = await fetchUserScores(uid);
+      console.log(userData); // You can see the user data in the console or use it elsewhere
+
     } catch(err) {
       console.log(err);
       alert('Sign in failed: ' + err.message);
@@ -24,6 +48,7 @@ const Login = () => {
       setLoading(false);
     }
   }
+
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
