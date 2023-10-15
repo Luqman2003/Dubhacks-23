@@ -1,17 +1,29 @@
-import { Text, View } from 'react-native'
+import { Text, SafeAreaView, Image, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { User } from 'firebase/auth'
 
-// interface props {
-//   user:
-// }
+const styles = StyleSheet.create({
+  progressPyramid: {
+    width: 200,
+    height: 200,
+  },
+
+  viewstyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+})
 
 export class Home extends Component {
   render() {
     return (
-      <View>
-        <Text>Home</Text>
-      </View>
+      <SafeAreaView style={styles.viewstyle}>
+        <Image
+        style={styles.progressPyramid}
+        source={require('../../assets/testTriangle.jpg')} 
+      />
+      </SafeAreaView>
     )
   }
 }

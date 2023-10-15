@@ -8,6 +8,7 @@ import List from './Components/Screens/List';
 import Details from './Components/Screens/Details';
 import Login from './Components/Screens/Login';
 import { FIREBASE_AUTH } from './FirebaseConfig';
+import Home from './Components/Screens/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +37,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
         {user ? (
-        <Stack.Screen name='Inside' component={InsideLayout} options={{ headerShown: false }}/>
+        <Stack.Screen name='Inside' component={Home} options={{ headerShown: false }}/>
         ) : (
         <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
         )}
