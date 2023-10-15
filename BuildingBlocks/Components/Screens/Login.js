@@ -31,23 +31,23 @@ const Login = () => {
   const auth = FIREBASE_AUTH;
 
   const signIn = async () => {
-    setLoading(true);
-    try {
-      const response = await signInWithEmailAndPassword(auth, email, password);
-      const uid = response.user.uid;
-      console.log(uid);
+  setLoading(true);
+  try {
+    const response = await signInWithEmailAndPassword(auth, email, password);
+    const uid = response.user.uid;
+    console.log(uid);
 
-      // Fetching user scores after successful sign-in
-      const userData = await fetchUserScores(uid);
-      console.log(userData); // You can see the user data in the console or use it elsewhere
+    // Fetching user scores after successful sign-in
+    const userData = await fetchUserScores(uid);
+    console.log(userData); // You can see the user data in the console or use it elsewhere
 
-    } catch(err) {
-      console.log(err);
-      alert('Sign in failed: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
+  } catch(err) {
+    console.log(err);
+    alert('Sign in failed: ' + err.message);
+  } finally {
+    setLoading(false);
   }
+}
 
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
