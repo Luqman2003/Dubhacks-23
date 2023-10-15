@@ -5,6 +5,7 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../FirebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import SignInUp from '../SignInUp';
 
 
 // using the firestore databse to fetch data about the user
@@ -21,7 +22,6 @@ async function fetchUserScores(uid) {
     return null;
   }
 }
-
 
 
 const Login = () => {
@@ -101,7 +101,10 @@ const Login = () => {
           <View style={{flex: 3}}>
             <View style={[styles.container, {flexDirection: 'column'}]}>
               <View style={{flex: 1}}>
-                <Text>SIGN UP</Text>
+                <View style={[styles.container, {flexDirection: 'row'}]}>
+                  <Text style={[styles.signUpLabels, {flex: 1}]}>SIGN UP</Text>
+                  <Text style={[styles.signUpLabels, {color: 'gray', flex: 1}]}>SIGN IN</Text>
+                </View>
               </View>
               <View style={{flex: 2}}>
                 {/* Bottom Half, Getting started and subtext */}
@@ -152,7 +155,8 @@ const Login = () => {
               source={require('../../assets/SignUp3.jpg')}
             />
           </View>
-          <View style={{flex: 5}}></View>
+          <View style={{flex: 5}}>
+          </View>
         </View>
       </View>
     </View>
@@ -182,7 +186,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   labels: {
-    margin: 10,
+    marginVertical: 10,
     fontWeight: 'bold',
     fontSize: 20
   },
@@ -192,21 +196,24 @@ const styles = StyleSheet.create({
     height: '100%',
     resizeMode: 'cover'
   },
-  image2: {
-    borderBottomLeftRadius: 15
-  },
   title: {
-    padding: 5,
+    marginVertical: 5,
     fontSize: 30,
     fontWeight: 'bold'
   },
   subtitle: {
-    padding: 6,
+    marginVertical: 5,
     fontSize: 16,
     color: 'gray'
   },
   image3: {
     borderTopRightRadius: 10
+  },
+  signUpLabels: {
+    fontWeight: 'bold',
+    fontSize: 15,
+    alignSelf: 'center',
+    marginLeft: 30
   }
 });
 
