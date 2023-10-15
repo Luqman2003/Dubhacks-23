@@ -44,7 +44,7 @@ export default function Home({user, navigation}) {
       try {
         const response = await fetchUserScores(user.uid);
         setUserData(response);
-        await updateDailyScore(user.uid);
+        // await updateDailyScore(user.uid);
       } catch (error) {
         console.error('Error fetching/updating data:', error);
       }
