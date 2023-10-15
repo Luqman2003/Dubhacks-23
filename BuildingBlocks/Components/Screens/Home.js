@@ -55,9 +55,6 @@ export default function Home({user, navigation}) {
           <Dropdown navigation={navigation}/>
         </View>
       </View>
-
-    <ShareBtn userVals={userData}/>
-      {/* Optionally render additional UI based on fetched data here */}
     </SafeAreaView>
   );
 }
