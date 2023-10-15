@@ -3,7 +3,8 @@ import { useState } from 'react';
 import React from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-
+import { db } from '../../FirebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -34,8 +35,15 @@ const Login = () => {
               return;
           }
           const response = await createUserWithEmailAndPassword(auth, email, password);
-          console.log(response);
+          const uid = response.user.uid;
+          console.log(uid);
           alert('Check your emails!');
+          await setDoc(doc(db, 'users', uid), {
+            num_blocks: 0,
+            num_daily: 0,
+            num_months: 0,
+            num_weeks: 0
+          });
       } catch(err) {
           console.log(err);
           alert('Sign up failed: ' + err.message);
@@ -50,7 +58,7 @@ const Login = () => {
       <View style={{flex: 1, backgroundColor: 'red'}} />
       <KeyboardAvoidingView style={{flex: 2}} behavior='padding'>
         {/* Email input */}
-        <TextInput 
+        <TextInput
           value={email}
           style={styles.input}
           placeholder='Email'
@@ -58,11 +66,11 @@ const Login = () => {
           onChangeText={(text) => setEmail(text)}>
         </TextInput>
         {/* Password input */}
-        <TextInput 
-          secureTextEntry={true} 
-          value={password} 
-          style={styles.input} 
-          placeholder='Password' 
+        <TextInput
+          secureTextEntry={true}
+          value={password}
+          style={styles.input}
+          placeholder='Password'
           autoCapitalize='none'
           onChangeText={(text) => setPassword(text)}>
         </TextInput>
