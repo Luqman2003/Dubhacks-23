@@ -1,30 +1,30 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ProfileSummary = (props) => {
+const ProfileSummary = React.forwardRef((props, ref) => {
     return (
-        <View style={styles.container}>
+        <View ref={ref} style={styles.container}>
             <Image source={require('../assets/gojo.jpg')} style={styles.avatar} />
             <Text style={styles.name}>Gojo Satoru</Text>
             <Text style={styles.quote}>"I've Always Been A Nice Guy..."</Text>
             <View style={styles.divider} />
             <View style={styles.stats}>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}> {/* props.num_daily*/} 8</Text>
+                    <Text style={styles.statNumber}> { props.userData && props.userData.num_daily ? props.userData.num_daily : 0} </Text>
                     <Text style={styles.statLabel}>Daily</Text>
                 </View>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}>{/* props.num_weekly */}5</Text>
+                    <Text style={styles.statNumber}>{ props.userData && props.userData.num_weekly ? props.userData.num_weekly : 0}</Text>
                     <Text style={styles.statLabel}>Weekly</Text>
                 </View>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}>{/* props.num_monthly */}4</Text>
+                    <Text style={styles.statNumber}>{ props.userData && props.userData.num_monthly ? props.userData.num_monthly : 0}</Text>
                     <Text style={styles.statLabel}>Monthly</Text>
                 </View>
             </View>
         </View>
     );
-};
+});
 
 const styles = StyleSheet.create({
     container: {
