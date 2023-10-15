@@ -4,6 +4,8 @@ import React from 'react'
 import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
+
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,19 +25,27 @@ const Login = () => {
     }
   }
 
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   const signUp = async () => {
-    setLoading(true);
-    try {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(response);
-      alert('Check your emails!')
-    } catch(err) {
-      console.log(err);
-      alert('Sign up failed: ' + err.message);
-    } finally {
-      setLoading(false);
-    }
+      setLoading(true);
+      try {
+          if (!emailRegex.test(email)) {
+              alert('Please enter a valid email address');
+              return;
+          }
+          const response = await createUserWithEmailAndPassword(auth, email, password);
+          console.log(response);
+          alert('Check your emails!');
+      } catch(err) {
+          console.log(err);
+          alert('Sign up failed: ' + err.message);
+      } finally {
+          setLoading(false);
+      }
   }
+
+
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView behavior='padding'>
