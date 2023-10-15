@@ -32,19 +32,31 @@ export default function App() {
     });
   }, []);
 
+  const renderHome = (props) => {
+    return <Home user={user} navigation={props.navigation} />;
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Login'>
         {user ? (
-        <Stack.Screen
-          name='Inside'
-          options={{ headerShown: false }}
-          children={() => <Home user={user} />}
-          />
-        ) : (
-        <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
-        )}
+          <>
+            <Stack.Screen
+              name='Home'
+              children={renderHome}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name='Inside'
+              component={InsideLayout} // InsideLayout contains List and Details
+              options={{ headerShown: false }}
+            />
+          </>
 
+
+        ) : (
+          <Stack.Screen name='Login' component={Login} options={{ headerShown: false }}/>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
