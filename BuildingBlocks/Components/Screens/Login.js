@@ -38,8 +38,15 @@ const Login = () => {
       console.log(uid);
 
       // Fetching user scores after successful sign-in
-      // const userData = await fetchUserScores(uid);
-      // console.log(userData); // You can see the user data in the console or use it elsewhere
+      const userData = await fetchUserScores(uid);
+      console.log(userData);
+
+      if(userData) {
+        // Navigate to Home if user exists in Firestore
+        // Your navigation logic here
+      } else {
+        alert('User not registered.');
+      }
 
     } catch(err) {
         console.log(err);
@@ -48,6 +55,7 @@ const Login = () => {
         setLoading(false);
     }
   }
+
 
 
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -81,7 +89,7 @@ const Login = () => {
   return (
     <View style={[styles.container, {flexDirection: 'column'}]}>
       <View style={{flex: 8}}>
-        <Image 
+        <Image
         source={require('../../assets/SignUp1.jpg')}
         style={[styles.image]}
         />
@@ -139,9 +147,9 @@ const Login = () => {
         {/* Bottom Fifth: Forgot Password */}
         <View style={[styles.container, {flexDirection: 'row'}]}>
           <View style={{flex: 3}}>
-            <Image 
+            <Image
               style={[styles.image, styles.image3]}
-              source={require('../../assets/SignUp3.jpg')} 
+              source={require('../../assets/SignUp3.jpg')}
             />
           </View>
           <View style={{flex: 5}}></View>
