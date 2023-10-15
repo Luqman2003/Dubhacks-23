@@ -1,9 +1,5 @@
-import { Text, SafeAreaView, Image, StyleSheet } from 'react-native'
-import React, { Component } from 'react'
-import { User } from 'firebase/auth'
-import { db } from '../../FirebaseConfig';
-import { doc, getDoc } from "firebase/firestore";
-import updateDailyScore from '../DatabaseLogic/DailyLogic';
+import React, { useEffect, useState } from 'react';
+import { Text, SafeAreaView, Image, StyleSheet } from 'react-native';
 import fetchUserScores from '../DatabaseLogic/FetchLogic';
 
 const styles = StyleSheet.create({
@@ -11,22 +7,37 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
-
   viewstyle: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   }
-})
+});
 
-export default async function Home({user}) {
+export default function Home({user}) {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchUserScores(user.uid);
+        console.log(response); // Now logs the expected value
+        setUserData(response);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
+  }, [user.uid]);
 
   return (
     <SafeAreaView style={styles.viewstyle}>
       <Image
-      style={styles.progressPyramid}
-      source={require('../../assets/testTriangle.jpg')}
-    />
+        style={styles.progressPyramid}
+        source={require('../../assets/testTriangle.jpg')}
+      />
+      {/* Optionally render additional UI based on fetched data here */}
     </SafeAreaView>
-  )
+  );
 }
