@@ -1,10 +1,14 @@
 // Home.js
 import React, { useEffect, useState } from 'react';
-import { Text, SafeAreaView, Image, StyleSheet, View } from 'react-native';
+import { SafeAreaView, Image, StyleSheet, View } from 'react-native';
 import fetchUserScores from '../DatabaseLogic/FetchLogic';
 import Dropdown from '../Dropdown';
+<<<<<<< HEAD
 import { Share } from 'react-native';
 import ShareBtn from '../ShareBtn';
+=======
+import ProfileSummary from '../ProfileSummary';
+>>>>>>> 5b4154c130599e3d491a3f1598c1bfb45d300959
 
 const styles = StyleSheet.create({
   progressPyramid: {
@@ -39,9 +43,22 @@ export default function Home({user, navigation}) {
 
   return (
     <SafeAreaView style={styles.viewstyle}>
-      <View style={{marginBottom: 80}}>
-        <Dropdown navigation={navigation}/>
+      <View style={styles.viewstyle}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          {/* Placeholder for stats posting */}
+          <ProfileSummary userData={userData}></ProfileSummary>
+        </View>
+        <View style={{ flex: 1, alignItems: 'center'}}>
+          <Image
+            style={styles.progressPyramid}
+            source={require('../../assets/Pyramid.png')}
+          />
+        </View>
+        <View style={{flex: 1}}>
+          <Dropdown navigation={navigation}/>
+        </View>
       </View>
+<<<<<<< HEAD
     <View style={{ alignItems: 'center'}}>
       <Image
         style={styles.progressPyramid}
@@ -50,6 +67,8 @@ export default function Home({user, navigation}) {
     </View>
     <ShareBtn userVals={userData}/>
       {/* Optionally render additional UI based on fetched data here */}
+=======
+>>>>>>> 5b4154c130599e3d491a3f1598c1bfb45d300959
     </SafeAreaView>
   );
 }
