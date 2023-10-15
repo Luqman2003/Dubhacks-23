@@ -5,23 +5,7 @@ import { FIREBASE_AUTH } from '../../FirebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../../FirebaseConfig';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-
-
-// using the firestore databse to fetch data about the user
-async function fetchUserScores(uid) {
-  try {
-    const userDoc = await getDoc(doc(db, 'users', uid));
-    if (userDoc.exists()) {
-      return userDoc.data();
-    } else {
-      throw new Error('User not found');
-    }
-  } catch(err) {
-    alert('Failed to fetch scores: ' + err.message);
-    return null;
-  }
-}
-
+import fetchUserScores from '../DatabaseLogic/FetchLogic';
 
 
 const Login = () => {
